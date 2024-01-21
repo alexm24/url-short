@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log/slog"
 	"os"
 
@@ -27,6 +28,7 @@ func main() {
 	// init storage
 	storage, err := sqlite.New(cfg.StoragePath)
 	if err != nil {
+		fmt.Println(err)
 		log.Error("failed to init storage", sl.Err(err))
 		os.Exit(1)
 	}
