@@ -7,7 +7,7 @@ import (
 
 	"github.com/mattn/go-sqlite3"
 
-	"url-shortener/internal/storage"
+	"url-short/internal/storage"
 )
 
 type Storage struct {

@@ -1,4 +1,4 @@
-module url-shortener
+module url-short
 
 go 1.21.5
 

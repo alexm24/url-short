@@ -5,9 +5,13 @@ import (
 	"log/slog"
 	"os"
 
-	"url-shortener/internal/config"
-	"url-shortener/internal/lib/logger/sl"
-	"url-shortener/internal/storage/sqlite"
+	"github.com/go-chi/chi/v5"
+	"github.com/go-chi/chi/v5/middleware"
+
+	"url-short/internal/config"
+	mwLogger "url-short/internal/http-server/middleware/logger"
+	"url-short/internal/lib/logger/sl"
+	"url-short/internal/storage/sqlite"
 )
 
 const (
@@ -34,6 +38,13 @@ func main() {
 	}
 
 	_ = storage
+
+	router := chi.NewRouter()
+	router.Use(middleware.RequestID)
+	router.Use(middleware.Logger)
+	router.Use(mwLogger.New(log))
+	router.Use(middleware.Recoverer)
+	router.Use(middleware.URLFormat)
 
 	// TODO: init router
 
